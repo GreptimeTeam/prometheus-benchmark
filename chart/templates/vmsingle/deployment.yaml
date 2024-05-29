@@ -20,14 +20,17 @@ spec:
         job: vmsingle
         {{- include "prometheus-benchmark.labels" . | nindent 8 }}
     spec:
-      {{- with $.Values.nodeSelector }}
       nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        ossbench.cluster/prombench: dedicated
+      tolerations:
+        - effect: NoSchedule
+          key: ossbench.cluster/prombench
+          operator: Equal
+          value: dedicated
       serviceAccount: {{ include "prometheus-benchmark.fullname" . }}-vmsingle
       containers:
       - name: vmsingle
-        image: "victoriametrics/victoria-metrics:{{ .Values.vmtag }}"
+        image: "465927837118.dkr.ecr.ap-southeast-1.amazonaws.com/greptimeteam/victoria-metrics:{{ .Values.vmtag }}"
         args:
         - --httpListenAddr=:8428
         - --promscrape.config=/config/scrape.yml

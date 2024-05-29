@@ -25,13 +25,16 @@ spec:
         remote-storage-name: {{ $rsName | quote }}
         {{- include "prometheus-benchmark.labels" $ | nindent 8 }}
     spec:
-      {{- with $.Values.nodeSelector }}
       nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        ossbench.cluster/prombench: dedicated
+      tolerations:
+        - effect: NoSchedule
+          key: ossbench.cluster/prombench
+          operator: Equal
+          value: dedicated
       containers:
       - name: vmalert
-        image: "victoriametrics/vmalert:{{ $.Values.vmtag }}"
+        image: "465927837118.dkr.ecr.ap-southeast-1.amazonaws.com/greptimeteam/vmalert:{{ $.Values.vmtag }}"
         args:
         - --httpListenAddr=:8880
         - --notifier.url=http://127.0.0.1:9093
@@ -53,7 +56,7 @@ spec:
         - name: vmalert-cfg
           mountPath: /config
       - name: alertmanager
-        image: prom/alertmanager:v0.24.0
+        image: 465927837118.dkr.ecr.ap-southeast-1.amazonaws.com/greptimeteam/alertmanager:v0.24.0
         args:
         - --web.listen-address=:9093
         - --config.file=/config/alertmanager.yml

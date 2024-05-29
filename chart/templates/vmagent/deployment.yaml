@@ -24,13 +24,17 @@ spec:
         remote-storage-name: {{ $rsName | quote }}
         {{- include "prometheus-benchmark.labels" $ | nindent 8 }}
     spec:
-      {{- with $.Values.nodeSelector }}
       nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        ossbench.cluster/prombench: dedicated
+      tolerations:
+        - effect: NoSchedule
+          key: ossbench.cluster/prombench
+          operator: Equal
+          value: dedicated
       containers:
       - name: vmagent-config-updater
-        image: "victoriametrics/vmagent-config-updater:v1.1.0"
+        image: "465927837118.dkr.ecr.ap-southeast-1.amazonaws.com/greptimeteam/vmagent-config-updater:v1.1.0"
+        imagePullPolicy: IfNotPresent
         args:
         - --httpListenAddr=:8436
         - --targetsCount={{ $.Values.targetsCount }}
@@ -45,7 +49,8 @@ spec:
             memory: {{ $.Values.writeReplicaMem }}
           limits:
             memory: {{ $.Values.writeReplicaMem }}
-        image: "victoriametrics/vmagent:{{ $.Values.vmtag }}"
+        image: "465927837118.dkr.ecr.ap-southeast-1.amazonaws.com/greptimeteam/vmagent:{{ $.Values.vmtag }}"
+        imagePullPolicy: IfNotPresent
         args:
         - --httpListenAddr=:8429
         - --remoteWrite.showURL
@@ -78,7 +83,8 @@ spec:
         - mountPath: /vmagent-data
           name: vmagent-data
       - name: nodeexporter
-        image: prom/node-exporter:v1.4.0
+        image: 465927837118.dkr.ecr.ap-southeast-1.amazonaws.com/greptimeteam/node-exporter:v1.4.0
+        imagePullPolicy: IfNotPresent
         args:
           - --path.procfs=/host/proc
           - --path.sysfs=/host/sys
@@ -108,7 +114,8 @@ spec:
           - containerPort: 9101
             name: metrics
       - name: nginx
-        image: nginx:1.23.1
+        image: 465927837118.dkr.ecr.ap-southeast-1.amazonaws.com/greptimeteam/nginx:1.23.1
+        imagePullPolicy: IfNotPresent
         args:
           - nginx
           - -c
