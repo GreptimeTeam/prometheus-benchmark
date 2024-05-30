@@ -96,4 +96,3 @@ remoteStorages:
     writeURL: "http://bench-ingress-nginx-controller.greptimedb-cluster-s3-storage-bench/v1/prometheus/write?db=vm9&"
   gtsingle-10:
     writeURL: "http://bench-ingress-nginx-controller.greptimedb-cluster-s3-storage-bench/v1/prometheus/write?db=vm10&"
-
