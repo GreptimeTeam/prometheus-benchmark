@@ -48,6 +48,7 @@ spec:
             cpu: {{ $.Values.writeReplicaCPU }}
             memory: {{ $.Values.writeReplicaMem }}
           limits:
+            cpu: {{ $.Values.writeLimitCPU }}
             memory: {{ $.Values.writeReplicaMem }}
         image: "465927837118.dkr.ecr.ap-southeast-1.amazonaws.com/greptimeteam/vmagent:{{ $.Values.vmtag }}"
         imagePullPolicy: IfNotPresent
