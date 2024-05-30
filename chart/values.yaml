@@ -60,11 +60,13 @@ writeReplicas: 12
 
 # writeReplicaMem is the memory limit per each pod writer.
 # See writeReplicas option.
-writeReplicaMem: "1Gi"
+writeReplicaMem: "3Gi"
 
 # writeReplicaCPU is the CPU limit per each pod writer.
 # See writeReplicas option.
 writeReplicaCPU: 1
+
+writeLimitCPU: 3
 
 # remoteStorages contains a named list of Prometheus-compatible systems to test.
 # These systems must support data ingestion via Prometheus remote_write protocol.
