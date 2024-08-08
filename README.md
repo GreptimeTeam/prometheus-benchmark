@@ -32,6 +32,9 @@ The following systems can be tested with prometheus-benchmark:
 - [Thanos](https://github.com/thanos-io/thanos/):
   - [How to push data to Thanos](https://thanos.io/tip/components/receive.md/)
   - [How to query data from Thanos](https://thanos.io/tip/components/query.md/)
+- [Greptime](https://github.com/GreptimeTeam/greptimedb/):
+  - [How to push data to Greptime](https://docs.greptime.com/user-guide/write-data/overview)
+  - [How to query data from Greptime](https://docs.greptime.com/user-guide/query-data/overview)
 
 ## How does it work?
 
@@ -67,6 +70,7 @@ The helm chart deploys the following pods:
 - [Benchmarking Prometheus-compatible time series databases](https://victoriametrics.com/blog/remote-write-benchmark/)
 - [Monitoring benchmark: how to generate 100 million samples/s of production-like data](https://victoriametrics.com/blog/benchmark-100m/)
 - [Grafana Mimir and VictoriaMetrics: performance tests](https://victoriametrics.com/blog/mimir-benchmark/)
+- [GreptimeDB vs. Grafana Mimir - First Official Benchmark for High Volume Write In Performance](https://greptime.com/blogs/2024-08-02-datanode-benchmark)
 
 ## How to run
 
