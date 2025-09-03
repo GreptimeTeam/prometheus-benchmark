@@ -19,7 +19,7 @@ targetsCount: 1000
 # For example, if the benchmark generates 1.23M active time series and scrapeInterval
 # is set to 10s, then the data ingestion rate equals to 1.23M/10s = 123K samples/sec.
 # See also writeReplicas and writeURLReplicas options.
-scrapeInterval: 5s
+scrapeInterval: 8s
 
 # queryInterval is how often to send queries from files/alerts.yaml to remoteStorages.readURL
 # This option can be used for tuning read load at remoteStorages.
@@ -78,6 +78,7 @@ remoteStorages:
     # writeURL: "http://172.17.0.1:4000/v1/prometheus/write"
     # readURL: "http://172.17.0.1:4000/v1/prometheus/"
     # readHeaders: "Content-Type:application/x-www-form-urlencoded"
+
   gtsingle-2:
     writeURL: "http://bench-ingress-nginx-controller.greptimedb-cluster-s3-storage-bench/v1/prometheus/write?db=vm2&"
   gtsingle-3:
