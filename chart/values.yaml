@@ -21,7 +21,7 @@ targetsCount: 1000
 # For example, if the benchmark generates 1.23M active time series and scrapeInterval
 # is set to 10s, then the data ingestion rate equals to 1.23M/10s = 123K samples/sec.
 # See also writeReplicas and writeURLReplicas options.
-scrapeInterval: 10s
+scrapeInterval: 8s
 
 # queryInterval is how often to send queries from files/alerts.yaml to remoteStorages.readURL
 # This option can be used for tuning read load at remoteStorages.
@@ -58,7 +58,7 @@ writeConcurrency: 0
 # its own extra `replica` label attached to time series stored to remote storage.
 # This option is useful for scaling the writers horizontally.
 # See also writeURLReplicas option.
-writeReplicas: 1
+writeReplicas: 4
 
 # writeReplicaMem is the memory limit per each pod writer.
 # See writeReplicas option.
@@ -75,7 +75,7 @@ writeReplicaCPU: 2
 remoteStorages:
   # the name of the remote storage to test.
   # The name is added to remote_storage_name label at collected metrics
-  vm:
+  greptimedb:
     # writeURL should contain the url, which accepts Prometheus remote_write
     # protocol at the tested remote storage.
     # For example, the following urls may be used for testing VictoriaMetrics:
@@ -84,7 +84,17 @@ remoteStorages:
     # It is possible to send data to multiple remote endpoints by specifying
     # multiple writeURL entries split by ",", e.g.:
     # writeURL: "http://<vminsert-cluster-1>:8480/insert/0/prometheus/api/v1/write,http://<vminsert-cluster-2>:8480/insert/0/prometheus/api/v1/write"
-    writeURL: ""
+    #
+    ## URL for GreptimeDB
+    writeURL: "http://greptimedb-frontend.metrics-bench.svc.cluster.local:4000/v1/prometheus/write"
+    # writeURL: "http://192.168.50.248:4000/v1/prometheus/write"    
+    #
+    ## URL for VictoriaMetrics Single Server
+    # writeURL: "http://vm-single-victoria-metrics-single-server.ent-metrics.svc.cluster.local:8428/api/v1/write"
+    #
+    ## URL for VictoriaMetrics Cluster
+    # writeURL: "http://victoria-metrics-victoria-metrics-cluster-vminsert.ent-metrics.svc.cluster.local:8480/insert/0/prometheus/api/v1/write"
+    #
     # writeURLReplicas is an optional number of writeURL replicas to send data to.
     # A unique `url_replica` label is added to every writeURL replica via `extra_label` query arg
     # in order to generate unique time series.

@@ -7,6 +7,7 @@ metadata:
   labels:
     {{- include "prometheus-benchmark.labels" . | nindent 4 }}
 spec:
+  storageClassName: local-path
   accessModes:
   - ReadWriteOnce
   resources:

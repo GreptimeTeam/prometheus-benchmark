@@ -32,7 +32,7 @@ spec:
       {{- end }}
       containers:
       - name: vmagent-config-updater
-        image: "victoriametrics/vmagent-config-updater:v1.1.0"
+        image: "greptime-registry.cn-hangzhou.cr.aliyuncs.com/tools/vmagent-config-updater:v1.1.0"
         args:
         - --httpListenAddr=:8436
         - --targetsCount={{ $.Values.targetsCount }}
@@ -47,7 +47,7 @@ spec:
             memory: {{ $.Values.writeReplicaMem }}
           limits:
             memory: {{ $.Values.writeReplicaMem }}
-        image: "victoriametrics/vmagent:{{ $.Values.vmtag }}"
+        image: "greptime-registry.cn-hangzhou.cr.aliyuncs.com/tools/vmagent:{{ $.Values.vmtag }}"
         args:
         - --httpListenAddr=:8429
         - --remoteWrite.showURL
@@ -86,7 +86,7 @@ spec:
         - mountPath: /vmagent-data
           name: vmagent-data
       - name: nodeexporter
-        image: prom/node-exporter:v1.4.0
+        image: greptime-registry.cn-hangzhou.cr.aliyuncs.com/tools/node-exporter:v1.4.0
         args:
           - --path.procfs=/host/proc
           - --path.sysfs=/host/sys
@@ -114,7 +114,7 @@ spec:
           - containerPort: 9101
             name: metrics
       - name: nginx
-        image: nginx:1.23.1
+        image: greptime-registry.cn-hangzhou.cr.aliyuncs.com/tools/nginx:1.23.1
         args:
           - nginx
           - -c

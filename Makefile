@@ -2,7 +2,7 @@ include services/Makefile
 
 # k8s namespace for installing the chart
 # It can be overriden via NAMESPACE environment variable
-NAMESPACE ?= vm-benchmark
+NAMESPACE ?= metrics-bench
 
 # the deployment prefix
 CHART_NAME := my-bench
